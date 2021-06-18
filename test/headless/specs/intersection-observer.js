@@ -174,11 +174,11 @@ testModule(
     ['@test observing a non visible element and then scrolling just past threshold and then back out should fire twice']() {
       return this.context
         .evaluate(function() {
-          window.STATE.impressions = 0;
+          window.STATE.callbacks = 0;
           let target = document.querySelector('.tracked-item[data-id="5"]');
           let observer = new spaniel.IntersectionObserver(
             function() {
-              window.STATE.impressions++;
+              window.STATE.callbacks++;
             },
             {
               threshold: 0.75
@@ -186,14 +186,14 @@ testModule(
           );
           observer.observe(target);
         })
-        .wait(100)
+        .wait(200)
         .scrollTo(80)
-        .wait(100)
+        .wait(200)
         .scrollTo(70)
-        .wait(100)
+        .wait(200)
         .getExecution()
         .evaluate(function() {
-          return window.STATE.impressions;
+          return window.STATE.callbacks;
         })
         .then(function(result) {
           assert.equal(result, 2, 'Callback fired twice');
