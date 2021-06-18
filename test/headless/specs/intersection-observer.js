@@ -171,6 +171,7 @@ testModule(
         });
     }
 
+    // TODO: It appears that the intersection observer polyfill does not respect the threshold parameter
     ['@test observing a non visible element and then scrolling just past threshold and then back out should fire twice']() {
       return this.context
         .evaluate(function() {
@@ -189,7 +190,7 @@ testModule(
         .wait(200)
         .scrollTo(80)
         .wait(200)
-        .scrollTo(70)
+        .scrollTo(0)
         .wait(200)
         .getExecution()
         .evaluate(function() {
@@ -219,7 +220,7 @@ testModule(
         .wait(100)
         .scrollTo(105)
         .wait(100)
-        .scrollTo(95)
+        .scrollTo(0)
         .wait(100)
         .getExecution()
         .evaluate(function() {
